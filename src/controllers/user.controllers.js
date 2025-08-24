@@ -25,7 +25,6 @@ const getRecommendedUsers=async(req,res)=>{
         res.status(500).json({ message: "Internal server error" });
     }
 }
-
 const getMyFriends=async(req,res)=>{
     try {
         const user=await User.findById(req.user.id).populate("friends","fullName profilePic nativeLanguage learningLanguage location")
@@ -36,7 +35,6 @@ const getMyFriends=async(req,res)=>{
     }
 
 }
-
 const sendFriendRequest=async(req,res)=>{
     try {
         const myId=req.user.id
@@ -72,7 +70,6 @@ const sendFriendRequest=async(req,res)=>{
         res.status(500).json({ message: "Internal server error" });
     }
 }
-
 const acceptFriendRequest=async(req,res)=>{
     try {
         const {id:requestId}=req.params
@@ -103,5 +100,23 @@ const acceptFriendRequest=async(req,res)=>{
         res.status(500).json({ message: "Internal server error" });
     }
 }
+const getFriendRequest=async(req,res)=>{
+    try {
+        const incomingReqs=await FriendRequest.find({
+            recipient:req.user.id,
+            status:"pending"
+        }).populate("sender","fullName profilePic nativeLanguage learningLanguage location")
 
-export {getRecommendedUsers,getMyFriends,sendFriendRequest,acceptFriendRequest}
+        const acceptedReqs=await FriendRequest.find({
+            recipient:req.user.id,
+            status:"accepted"
+        }).populate("sender","fullName profilePic location")
+
+        res.status(200).json({incomingReqs,acceptedReqs})
+    } catch (error) {
+        console.log("Error fetching friend requests:",error.message)
+        res.status(500).json({message:"Internal server error"})
+    }
+}
+
+export {getRecommendedUsers,getMyFriends,sendFriendRequest,acceptFriendRequest,getFriendRequest}
