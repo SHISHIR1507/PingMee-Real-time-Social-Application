@@ -36,4 +36,8 @@ const getMyFriends=async(req,res)=>{
 
 }
 
-export {getRecommendedUsers,getMyFriends}
+const sendFriendRequest=async(req,res)=>{
+
+}
+
+export {getRecommendedUsers,getMyFriends,sendFriendRequest}
