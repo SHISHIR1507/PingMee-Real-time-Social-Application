@@ -16,11 +16,9 @@ router.post('/logout', logout);
 
 router.post(`/onboarding`, protectRoute, onboard);
 
-router.get("/loginCheck", (req, res) => {
-    res.status(200).json({
-        message: "Login check successful",
-        user: req.user
-    });
+router.get("/loginCheck",protectRoute, (req, res) => {
+    res.status(200).json({ success: true, user: req.user });
 });
+
 
 export default router;

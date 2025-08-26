@@ -167,4 +167,5 @@ const onboard = async (req, res) => {
     }
 }
 
+
 export { signup, login, logout, onboard };
