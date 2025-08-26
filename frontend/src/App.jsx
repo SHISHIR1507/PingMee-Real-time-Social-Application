@@ -27,8 +27,8 @@ const App = () => {
     <div className="h-screen " data-theme="cupcake">
       <Routes>
         <Route path="/" element={authUser ? <HomePage /> : <Navigate to="/login" />} />
-        <Route path="/login" element={!authUser ? <LoginPage />: <Navigate to="/" />} />
         <Route path="/signup" element={!authUser ? <SignUpPage />: <Navigate to="/" />} />
+        <Route path="/login" element={!authUser ? <LoginPage />: <Navigate to="/" />} />
         <Route path="/onboarding" element={authUser ? <OnboardingPage />: <Navigate to="/login" />} />
         <Route path="/notifications" element={authUser ? <NotificationsPage /> : <Navigate to="/login" />} />
         <Route path="/chat" element={authUser ? <ChatPage />: <Navigate to="/login" />} />
